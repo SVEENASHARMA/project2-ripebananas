@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>User Form</title>
+  <link rel="stylesheet" href="static/style/main.css" media="screen">
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+</head>
+
+<body>
+ 
+    <div id="create-user-form" class="create-user-form">
+        <h2>Enter your information below!</h2>
+        <form method="POST" action="/create_user" role="form", name="form">
+          <div class="form-group">
+            <label for="inputAge">Please enter your age</label>
+            <input type="text" class="form-control" id="inputAge" name="userAge" placeholder="i.e., 21">
+          </div>
+          <div class="form-group">
+            <label for="inputZip">Please enter your zip code</label>
+            <input type="text" class="form-control" id="inputZip" name="userZip" placeholder="i.e., 00000">
+          </div>
+          <div class="form-group">
+            <label for="inputFreq">How often do you use streaming services?</label>
+            <select type="text" class="form-control" id="inputFreq" name="userFreq" placeholder="Click here">
+              <option value='1'>Daily</option>
+              <option value='2'>Weekly</option>
+              <option value='3'>Monthly</option> 
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="inputServ">Service Selection (Ctrl + Click)</label>
+            <select type="text" class="form-control" id="inputServ" name="userServ" placeholder="Click here" multiple>
+            </select>
+          </div>
+          <input type="submit" value="submit" class="btn btn-primary">
+        </form>
+    
+          <script>
+            function init_servicelist() {
+              var inputserv = d3.select('#inputServ')
+              d3.json("/api/view/VW_ServiceByPopularity").then((services) => {
+                inputserv.html('');
+                services.forEach(service => {
+                  inputserv.append('option').attr('value', service['Service_ID']).text(service['Service_Name'])
+                  //console.log(service['Service_ID']); 
+                });
+              });
+            };
+            init_servicelist();
+
+          </script>
+    </div>
+
+  
+
+</body>
+</html>

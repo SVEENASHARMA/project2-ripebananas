@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Ripe Bananas!</title>
+    <link rel="shortcut icon" type="image/jpg" href="static/images/favicon.png"/>
+
+    <!-- Boostrap Stylesheet -->
+    <link rel="stylesheet" href="bootstrap.min.css" media="screen">
+
+    <!-- Our own CSS stylesheet -->
+    <link rel="stylesheet" href="main.css" media="screen">
+
+  </head>
+
+    <!-- Start of navbar -->
+    <nav class="navbar navbar-default">
+        <div class="container-fluid navbar-custom">
+  
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="row">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle Navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right navbar-right-custom">
+              <li><a href="index.html" target="_blank" rel="noopener noreferrer">Home</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Streaming Services<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="https://www.hulu.com/" target="_blank" rel="noopener noreferrer">Hulu</a></li>
+                  <li><a href="https://www.netflix.com/" target="_blank" rel="noopener noreferrer">Netflix</a></li>
+                  <li><a href="https://www.primevideo.com/" target="_blank" rel="noopener noreferrer">Amazon Prime Video</a></li>
+                  <li><a href="https://www.hbomax.com/" target="_blank" rel="noopener noreferrer">HBO Max</a></li>
+                  <li><a href="https://www.disneyplus.com/" target="_blank" rel="noopener noreferrer">Disney+</a></li>
+                </ul>
+              </li>
+              <li><a href="streaming.html" target="_blank" rel="noopener noreferrer">Compare Streaming Platforms</a></li>
+              <li><a href="community.html" target="_blank" rel="noopener noreferrer">Demographics</a></li>
+              <li><a href="maps.html" target="_blank" rel="noopener noreferrer">Theatres</a></li>
+              <li><a href="team.html" target="_blank" rel="noopener noreferrer">Meet the Team!</a></li>
+            </ul>
+          </div><!-- /.navbar-collapse -->
+        </div>
+      </div><!-- /.container-fluid -->
+    </nav>
+    <!-- End of navbar -->
+
+    <div class="container">
+        <div class="row margin-top-50">
+          <div class="col-md-2">
+            <aside class="filters">
+              <div class="panel panel-default">
+                <div class="panel-heading">Filter Search</div>
+                <div class="panel-body">
+                  <form>
+                    <div class="form-group">
+                      <ul class="list-group" id="filters">
+                        <li class="filter list-group-item">
+                          <label for="date">Date (e.g., 1/2/2010)</label>
+                          <input
+                            class="form-control"
+                            id="datetime"
+                            type="text"
+                            placeholder="1/2/2010"
+                            value=""
+                            autocomplete="off"
+                          />
+                        </li>
+                        <li class="filter list-group-item select-filter">
+                          <label for="city">City</label>
+                          <select></select>
+                        </li>
+                        <li class="filter list-group-item select-filter">
+                          <label for="state">State</label>
+                          <select></select>
+                        </li>
+                        <li class="filter list-group-item select-filter">
+                          <label for="country">Country</label>
+                          <select></select>
+                        </li>
+                        <li class="filter list-group-item select-filter">
+                          <label for="shape">Shape</label>
+                          <select></select>
+                        </li>
+                      </ul>
+                    </div>
+                    <button id="filter-btn" type="button" class="btn btn-default">Filter Table</button>
+                  </form>
+                </div>
+              </div>
+            </aside>
+          </div>
+          <div class="col-md-10">
+            <div id="table-area" class="">
+              <table id="ufo-table" class="table table-striped">
+                <thead>
+                  <tr>
+                    <th class="table-head">Date</th>
+                    <th class="table-head">City</th>
+                    <th class="table-head">State</th>
+                    <th class="table-head">Country</th>
+                    <th class="table-head">Shape</th>
+                    <th class="table-head">Duration</th>
+                    <th class="table-head">Comments</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+</body>
+

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ripe Bananas!</title>
+    <link rel="shortcut icon" type="image/jpg" href="images/favicon.png" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <!-- Bootstrap CSS and JS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+        crossorigin="anonymous"></script>
+
+    <!-- Our own CSS stylesheet -->
+    <link rel="stylesheet" href="static/style/main.css" media="screen">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- CSS For Marker Clusters -->
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css">
+
+    <!-- D3 -->
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+
+    <!-- Leaflet JS and CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin="" />
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
+
+    <!-- Marker Cluster JS -->
+
+
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/leaflet.markercluster.js"></script>
+
+    <!-- JavaScript file for the Marker Clusters -->
+    <script src="{{url_for('static', filename='js/app.js')}}" defer></script>
+    <script src="{{url_for('static', filename='js/config.js')}}" defer></script>
+    <script src="{{url_for('static', filename='js/marker-cluster-map.js')}}" defer></script>
+
+
+</head>
+
+<body id="myPage">
+
+    <!-- Sidebar on click
+<nav class="w3-sidebar w3-bar-block w3-white w3-card w3-animate-left w3-xxlarge" style="display:none;z-index:2" id="mySidebar">
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-display-topright w3-text-teal">Close
+    <i class="fa fa-remove"></i>
+  </a>
+  <a href="#" class="w3-bar-item w3-button">Link 1</a>
+  <a href="#" class="w3-bar-item w3-button">Link 2</a>
+  <a href="#" class="w3-bar-item w3-button">Link 3</a>
+  <a href="#" class="w3-bar-item w3-button">Link 4</a>
+  <a href="#" class="w3-bar-item w3-button">Link 5</a>
+</nav> -->
+
+
+
+    <!-- Navbar -->
+    <div class="w3-top">
+        <div class="w3-bar w3-theme-d2 w3-left-align">
+            <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-hover-white w3-theme-d2"
+                href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
+            <a href="#" class="w3-bar-item w3-button w3-yellow"><i class="fa fa-bars w3-margin-right"></i>Ripe
+                Bananas</a>
+            <a href="#search" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Search</a>
+            <a href="#streaming" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Streaming Services
+                Comparison</a>
+            <a href="#plotly" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Visualizations</a>
+            <a href="#theatre" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Theatres in DC</a>
+            <a href="#team" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Meet the Team</a>
+            <div class="w3-dropdown-hover w3-hide-small">
+                <button class="w3-button" title="Notifications">Streaming Platforms <i
+                        class="fa fa-caret-down"></i></button>
+                <div class="w3-dropdown-content w3-card-4 w3-bar-block">
+                    <a href="https://www.netflix.com/" target="_blank" class="w3-bar-item w3-button">Netflix</a>
+                    <a href="https://www.hulu.com/" target="_blank" class="w3-bar-item w3-button">Hulu</a>
+                    <a href="https://www.primevideo.com/" target="_blank" class="w3-bar-item w3-button">Prime Video</a>
+                    <a href="https://www.hbomax.com/" target="_blank" class="w3-bar-item w3-button">HBO Max</a>
+                    <a href="https://www.disneyplus.com/" target="_blank" class="w3-bar-item w3-button">Disney Plus</a>
+                </div>
+            </div>
+            <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-yellow" title="Search"><i
+                    class="fa fa-search"></i></a>
+        </div>
+
+        <!-- Navbar on small screens -->
+        <div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium">
+            <a href="#search" class="w3-bar-item w3-button">Search</a>
+            <a href="#streaming" class="w3-bar-item w3-button">Streaming Services Comparison</a>
+            <a href="#plotly" class="w3-bar-item w3-button">Visualizations</a>
+            <a href="#theatre" class="w3-bar-item w3-button">Theatres in DC</a>
+            <a href="#team" class="w3-bar-item w3-button">Meet the Team</a>
+            <a href="#" class="w3-bar-item w3-button">Search</a>
+        </div>
+    </div>
+ 
+
+    <!-- Lookup Container -->
+    <div class="w3-container w3-padding-64 w3-center" id="search">
+        <h2>Search</h2>
+        <!-- Input form -->
+        <form method="POST" action="/lookup_result">
+            <div id="search-10" class="widget_search"> 
+                <div style="text-align: center;">
+                    <input class="ubicacion" type="text" value="" name="media_title" id="media_title">
+                    <input type="submit" id="searchsubmit" value="Search" />
+                </div> 
+            </div>
+            <div id="result-container" class="container"> 
+
+                <h1>Results</h1>
+
+                {% for t in titles %}
+                    <div class='singleTitleUnit'>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <img class='feature_img' src="{{t.feature_img}}" alt="">
+                            
+                            <h4 class='recommendedTitle'>Recommended Titles:</h4>
+                            <div>
+                                {% for s in t.recommended[0:5] %}
+                                <div >{{s}}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <h3>{{t.title}}</h3>
+                            <h4>Where to watch:</h4>
+                            <div>
+                                {% for s in t.services %}
+                                    <div class='serviceItem'>{{s}}</div>
+                                {% endfor %}
+                            </div>
+                            <p>{{t.description}}</p>
+                            <label>IMDb Rating:</label>{{t.rating}}
+                            <label>Maturity Rating:</label>{{t.maturity}}
+                            <br>
+                            <label>Genre:</label>{{t.genre}}
+                            <label>Country:</label>{{t.country}}
+                           
+                        </div>
+                    </div> 
+                    </div>
+                {% endfor %}
+
+            </div> 
+        </form> 
+    </div>
+    <style>
+        #result-container .singleTitleUnit{
+        padding: 1em;
+        margin: 1em 0em;
+        border-bottom: 1px solid #5a5858;
+}
+        #result-container .feature_img{
+        max-height: 300px;
+        padding: 1em;
+        margin: 1em 0em;
+        border: 1px solid #BFBFBF;
+        background-color: white;
+        box-shadow: 10px 10px 5px #aaaaaa;
+}
+        #result-container .serviceItem{
+        border: 1px solid #ddd;
+        background-color: #f8f8f8;
+        padding: 1em;
+        margin: .25em 0em;
+        display: inline-block;
+        min-width: 40%;
+        border-radius: 1em;
+    }
+        #result-container label{
+        font-weight: bold;
+        font-size: 18px;
+        display: inline-block;
+    }
+      #result-container .recommendedTitle{
+        font-weight: bold;
+        font-size: 18px;
+        padding-top: 1em;
+    }
+
+    </style>
+    <!--  // Lookup Container -->
+
+ 
+ 
+    <!-- Start of Footer -->
+    <footer>
+        <p>The Forgotten Dartlings 2021<br>
+    </footer>
+    <!-- End of Footer -->
+
+    <script>
+        // Script for side navigation
+        function w3_open() {
+            var x = document.getElementById("mySidebar");
+            x.style.width = "300px";
+            x.style.paddingTop = "10%";
+            x.style.display = "block";
+        }
+
+        // Close side navigation
+        function w3_close() {
+            document.getElementById("mySidebar").style.display = "none";
+        }
+
+        // Used to toggle the menu on smaller screens when clicking on the menu button
+        function openNav() {
+            var x = document.getElementById("navDemo");
+            if (x.className.indexOf("w3-show") == -1) {
+                x.className += " w3-show";
+            } else {
+                x.className = x.className.replace(" w3-show", "");
+            }
+        }
+    </script>
+
+</body>
+
+</html>
+
+
+
+ 
+
+<!--
+        <input class="ubicacion" type="text" value="" name="media_title" id="media_title">
+        <input type="submit" id="searchsubmit" value="Search" />
+--->
+<div id='titlecontainer'></div>
+<script>
+    var submit = d3.select('#searchsubmit');
+        //Event Listener for dropdown
+    //submit.on('click', doLookup);
+    function doLookup() {
+        var mediatitle = d3.select('#media_title').property('value');
+        var titlecontainer = d3.select('#titlecontainer');
+        d3.json(`/api/lookup/${mediatitle}`).then((titles) => {
+            //inputserv.html('');
+            titles.forEach(title => {
+                //add titles
+                var h1 = titlecontainer.append('h1');
+                h1.text(title.title);
+                //add services
+                var ul = titlecontainer.append('ul');
+                title.services.forEach(i => {
+                    var li = ul.append('li');
+                    li.text(i);
+                });
+                //add rating
+                var h3 = titlecontainer.append('h3');
+                h3.text(`IMDb Rating: ${title.rating}`);
+                console.log(title.rating); 
+                //add genre
+                var h3 = titlecontainer.append('h3');
+                h3.text(`Genre: ${title.genre}`);
+                console.log(title.genre); 
+                //add Maturity Rating
+                var h3 = titlecontainer.append('h3');
+                h3.text(`Rated: ${title.maturity}`);
+                console.log(title.maturity); 
+                //add country
+                var h3 = titlecontainer.append('h3');
+                h3.text(`Country: ${title.country}`);
+                console.log(title.country); 
+                //add description
+                var div = titlecontainer.append('div');
+                div.text(title.description);
+                //add recommendations
+                var ul = titlecontainer.append('ul');
+                title.recommended.slice(0, 5).forEach(i => {
+                    var li = ul.append('li');
+                    li.text(i);
+                })
+                //add image
+                var img = titlecontainer.append('img');
+                img.attr('src', title.feature_img);
+                img.attr('class', 'feature_img')
+ 
+            });
+        });
+    };
+    //doLookup();
+
+</script>
+<style>
+    #titlecontainer .feature_img{
+        max-height: 300px;
+    }
+</style>

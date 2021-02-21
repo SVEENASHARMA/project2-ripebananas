@@ -1,0 +1,62 @@
+/*This css targes the look up titles*/
+        
+#result-container .singleTitleUnit{
+        padding: 1em;
+        margin: 1em 0em;
+        border-bottom: 1px solid #5a5858;
+}
+#result-container .feature_img{
+        max-height: 400px;
+        padding: 1em;
+        margin: 1em 0em;
+        border: 3px solid #bfbfbf;
+        background-color: white;
+        box-shadow: 10px 10px 5px #33200c;
+        position: relative;
+}
+#result-container  .serviceItem{
+        border: 1px solid  rgba(51, 32, 12,.50);
+        background-color: rgba(51, 32, 12,.50);
+        background-color:#E9ECEF;
+        padding: 1em;
+        margin: .25em 0em;
+        display: block;
+        width: 100%;
+        border-radius: 1em;
+        position: relative;
+}
+
+.serviceItem img{
+    display: inline-block;
+    height: 50px;
+ 
+}
+
+ #result-container label{
+        font-weight: bold;
+        font-size: 18px;
+        display: inline-block;
+}
+#result-container .recommendedTitle{
+        font-weight: bold;
+        font-size: 18px;
+        padding-top: 1em;
+}
+#searchsubmit, #media_title{
+    padding: .5em 1em !important;
+    font-size: 2em !important;
+    border: .5px solid #33200c;
+}
+#result-container .title-description{
+    font-weight:400;
+    line-height:1.5em;
+    padding:1em 0em;
+    display:block;
+    font-size: 1.25em;
+    text-transform: none;
+    margin:1em 0em;
+    text-align:left;
+}
+.searchlogo{
+        max-width: 100px;
+}

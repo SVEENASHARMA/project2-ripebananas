@@ -1,0 +1,274 @@
+/* ----DEFAULT ELEMENT STYLING START---- */
+html {
+  /* Positioning */
+  position: relative;
+
+  /* Box-model */
+  min-height: 100%;
+}
+
+body {
+  /* Positioning */
+  margin-bottom: 150px;
+
+  /* Typography */
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+
+  /* Visual */
+  background-color:#000000;
+
+  text-align:center;
+}
+
+h2 {
+  font-size: 50px;
+  color: #32c5df;
+  position: relative;
+}
+
+h3 {
+  font-size: 30px;
+  color: var(--primary-color);
+  position: relative;
+}
+
+h4 {
+  font-size: 40x;
+  color:rgb(55, 4, 224);
+  background-color: rgb(0, 0, 0);
+  position: relative;
+}
+
+
+/* Media query for body */
+@media only screen and (max-width: 767px) {
+  /* Set background color to white on small screens */
+  body {
+    /* Visual */
+    background-color: #fff;
+  }
+}
+
+/* ----DEFAULT ELEMENT STYLING END---- */
+
+/* ----NAV START---- */
+.navbar-custom {
+  background-color: rgba(0, 0, 0, 0.849);
+}
+
+.navbar-right-custom {
+  /* Box-model */
+  padding-top: 6px;
+  padding-right: 40px;
+
+  /* Typography */
+  font-family: Arial;
+  font-weight: bolder;
+}
+
+/* Nav element hover state */
+.navbar-default .navbar-nav > li > a:hover {
+  color: #1c91c7;
+}
+
+/* -----NAV END---- */
+
+/* ----DESCRIPTION START---- */
+.description-header {
+  /* Positioning */
+  margin-bottom: 33px;
+  font-family: sans-serif;
+
+  /* Typography */
+  font-size: 100px;
+  font-weight: bold;
+  color: #e7e0e7;
+}
+
+.description-content {
+  /* Box-model */
+  padding: 30px;
+
+  /* Positioning */
+  margin-top: 32px;
+
+  /* Visual */
+  background-color: rgb(0, 0, 0);
+}
+
+.description-content > p {
+  /* Box-model */
+  padding-top: 20px;
+
+  /* Typography */
+  font-size: 16px;
+  line-height: 30px;
+  color: rgb(0, 0, 0);
+}
+
+.description-text {
+  padding-bottom: 20px;
+}
+
+#description-image {
+  /* Positioning */
+  float: left;
+
+  /* Box-model */
+  width: 200px;
+  height: 200px;
+  margin-top: 20px;
+  margin-right: 20px;
+}
+
+/* Description content media query */
+@media only screen and (max-width: 767px) {
+  /* override default class styling for positioning/padding */
+
+  .description-content {
+    /* Box-model */
+    padding: 0;
+
+    /* Positioning */
+    margin-top: 0;
+  }
+}
+
+/* ----DESCRIPTION END---- */
+
+/* ----COMPARISON START---- */
+.comparison-image:hover {
+  opacity: 0.6;
+}
+
+.comparison-header {
+  /* Positioning */
+  margin-bottom: 10px;
+  font-family: Georgia, Times, "Times New Roman", serif;
+
+  /* Typography */
+  font-size: 20px;
+  font-weight: bold;
+  color: #4aaaa5;
+  text-align: center;
+}
+
+/* ----COMPARISON END---- */
+
+/* ----FOOTER START---- */
+.footer {
+  /* Positioning */
+  position: absolute;
+  bottom: 0;
+
+  /* Box-model */
+  width: 100%;
+  height: 60px;
+  margin-top: 30px;
+
+  /* Visual */
+  background-color: rgba(112, 109, 109, 0.103);
+}
+
+.text-muted-footer {
+  /* Positioning */
+  margin-top: 15px;
+
+  /* Typography */
+  color: #fff;
+}
+
+.two-toned-footer-color {
+  /* Box-model */
+  height: 6px;
+  padding-top: 3px;
+
+  /* Visual */
+  background-color: #3634349b;
+}
+
+/* ----FOOTER END---- */
+
+/* ANIMATION */
+/* animation source: https://codepen.io/cassandraPaige/pen/jOEMMyp */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-color: #f1f1f1;
+  --secondary-color: #000000;
+  --complimentary-color: #32c5df;
+}
+
+.container {
+  min-height: 100vh;
+  position: relative;
+  width: 100vw;
+  display: flex;
+  background-color: var(--complimentary-color);
+  justify-content: center;
+  align-items: center;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+ position: relative;
+}
+
+h1 {
+  font-size: 100px;
+  color: rgb(224, 166, 4);
+  transform: translateY(-600px);
+  animation: 1.2s slideIn ease-in-out forwards 1s;
+  z-index: 10;
+  opacity: 0;
+  position: relative;
+}
+
+h1::before {
+    content: '';
+    width: 0%;
+    height: 76px;
+    background-color: var(--secondary-color);
+    position: absolute;
+    bottom: -10px;
+    animation: 1s underline ease-in-out forwards 2s;
+    mix-blend-mode: screen;
+}
+
+.overlay {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    opacity: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--secondary-color);
+    transform: scale(.5);
+    animation: .5s slideIn ease-in-out forwards, 1s skewBg ease-in-out;
+}
+
+@keyframes skewBg {
+  0% {
+    transform: scale(.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes underline {
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes slideIn {
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+/* End of Animation  */

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ripe Bananas!</title>
+    <link rel="shortcut icon" type="image/jpg" href="images/favicon.png" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <!-- Bootstrap CSS and JS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+        crossorigin="anonymous"></script>
+
+    <!-- Our own CSS stylesheet -->
+    <link rel="stylesheet" href="static/style/main.css" media="screen">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- CSS For Marker Clusters -->
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='style/titles.css')}}" media="screen">
+
+    <!-- D3 -->
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+
+    <!-- Leaflet JS and CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin="" />
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
+
+    <!-- Marker Cluster JS -->
+
+
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/leaflet.markercluster.js"></script>
+
+    <!-- JavaScript file for the Marker Clusters -->
+    <script src="{{url_for('static', filename='js/app.js')}}" defer></script>
+    <script src="{{url_for('static', filename='js/config.js')}}" defer></script>
+    <script src="{{url_for('static', filename='js/marker-cluster-map.js')}}" defer></script>
+
+<style>
+    .navbar-brand{
+        background-color:#FEBE00;
+    }
+    .navbar{
+        padding:0px;
+    }
+    .navbar{
+        background-color:#33200c;
+    }
+    .navbar-dark .navbar-nav .nav-link{
+         color:#f8f8f8;
+    }
+    .navbar-brand img{
+        max-height: 55px;
+        height:100%;
+        margin :0em 1em;
+    }
+</style>
+</head>
+
+<body id="myPage">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="/"><img src="static/images/rb-logo.png" alt=""></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item"> <a class="nav-link" href="/#search">Search</a> </li>
+            <li class="nav-item"> <a class="nav-link" href="/#subscribe">Subscribe</a> </li>
+            <li class="nav-item"> <a class="nav-link" href="/#streaming">Costs</a> </li>
+            <li class="nav-item"> <a class="nav-link" href="/#plotly">Recommendations</a> </li>
+            <li class="nav-item"> <a class="nav-link" href="/#subscriber-map-section">Subscriber Map</a> </li>
+            <li class="nav-item"> <a class="nav-link" href="/#theatre">Theatres in DC</a> </li>
+            <li class="nav-item"> <a class="nav-link" href="/#team">Meet the Team</a> </li>
+            <li class="nav-item"> <a class="nav-link" href="/#review">Reviews</a> </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Services
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    {% for service in streaming_services[0:17] %}
+                    <a class="dropdown-item" href="http://www.{{service.Service_URL}}"
+                        target="_blank">{{service.Service_Name}}</a>
+                    {% endfor %}
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+ 
+    <div class="w3-container w3-padding-64 w3-center" id="team">
+        <a href="/">Click here to Find Your Streaming Service!</a>
+        <h1>Thank You!</h1> 
+        <br>
+        <img src="static/images/logo.jpg" style="width:600px;height:600px;">
+    </div>
+
+    <!-- Team Container -->
+    <div class="w3-container w3-padding-64 w3-center" id="team">
+        <h2>Meet the Team</h2>
+        <h4>AKA The Forgotten Dartlings!</h4>
+        <img src="static/images/logo.jpg" style="width:600px;height:600px;">
+
+        <div class="w3-row"><br>
+
+            <div class="w3-third">
+                <h3>William Pappas</h3>
+                <h5>Web Scraping Pro - basically a Whiz Kid</h5>
+            </div>
+
+            <div class="w3-third">
+                <h3>Desiree Herschberger</h3>
+                <h5>Database Phenomenon! A jack of all trades! </h5>
+            </div>
+
+            <div class="w3-third">
+                <h3>Redeat Bekele</h3>
+                <h5>Exceptional and remarkable - What CAN'T she do?!</h5>
+            </div>
+
+            <div class="w3-third">
+                <h3>Thomas Keane</h3>
+                <h5>Flask and Plotly Wizard! Quiet but watch out for him!</h5>
+            </div>
+
+            <div class="w3-third">
+                <h3>Taslemun Nahar</h3>
+                <h5>Java and HTML Artiste - absolutely incredible!</h5>
+            </div>
+
+            <div class="w3-third">
+                <h3>Sveena Sharma</h3>
+                <h5>Web Development - just here for a good time</h5>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Start of Footer -->
+    <footer>
+        <p>The Forgotten Dartlings 2021<br>
+    </footer>
+    <!-- End of Footer -->
+
+    <script>
+        // Script for side navigation
+        function w3_open() {
+            var x = document.getElementById("mySidebar");
+            x.style.width = "300px";
+            x.style.paddingTop = "10%";
+            x.style.display = "block";
+        }
+
+        // Close side navigation
+        function w3_close() {
+            document.getElementById("mySidebar").style.display = "none";
+        }
+
+        // Used to toggle the menu on smaller screens when clicking on the menu button
+        function openNav() {
+            var x = document.getElementById("navDemo");
+            if (x.className.indexOf("w3-show") == -1) {
+                x.className += " w3-show";
+            } else {
+                x.className = x.className.replace(" w3-show", "");
+            }
+        }
+    </script>
+
+</body>
+
+</html>

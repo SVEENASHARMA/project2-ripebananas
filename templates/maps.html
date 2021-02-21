@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<title>Theatre Map</title>
+<link rel="shortcut icon" type="image/jpg" href="images/favicon.png"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Our own CSS stylesheet -->
+<link rel="stylesheet" href="static/style/main.css" media="screen">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<script>
+  API_KEY = '{{accessToken}}';
+</script>
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+    crossorigin="" />
+
+  <!-- Our CSS -->
+  <link rel="stylesheet" type="text/css" href="static/style/style.css">
+</head>
+<body id="myPage">
+
+  <!-- Sidebar on click
+  <nav class="w3-sidebar w3-bar-block w3-white w3-card w3-animate-left w3-xxlarge" style="display:none;z-index:2" id="mySidebar">
+    <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-display-topright w3-text-teal">Close
+      <i class="fa fa-remove"></i>
+    </a>
+    <a href="#" class="w3-bar-item w3-button">Link 1</a>
+    <a href="#" class="w3-bar-item w3-button">Link 2</a>
+    <a href="#" class="w3-bar-item w3-button">Link 3</a>
+    <a href="#" class="w3-bar-item w3-button">Link 4</a>
+    <a href="#" class="w3-bar-item w3-button">Link 5</a>
+  </nav> -->
+  
+  <!-- Navbar -->
+  <div class="w3-top">
+   <div class="w3-bar w3-theme-d2 w3-left-align">
+    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-hover-white w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
+    <a href="#" class="w3-bar-item w3-button w3-yellow"><i class="fa fa-bars w3-margin-right"></i>Ripe Bananas</a>
+    <a href="#search" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Search</a>
+    <a href="#streaming" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Streaming Services Comparison</a>
+    <a href="#plotly" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Visualizations</a>
+    <a href="#theatre" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Theatres in DC</a>
+    <a href="#team" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Meet the Team</a>
+      <div class="w3-dropdown-hover w3-hide-small">
+      <button class="w3-button" title="Notifications">Streaming Platforms <i class="fa fa-caret-down"></i></button>     
+      <div class="w3-dropdown-content w3-card-4 w3-bar-block">
+        <a href="https://www.netflix.com/" target="_blank" class="w3-bar-item w3-button">Netflix</a>
+        <a href="https://www.hulu.com/" target="_blank" class="w3-bar-item w3-button">Hulu</a>
+        <a href="https://www.primevideo.com/" target="_blank" class="w3-bar-item w3-button">Prime Video</a>
+        <a href="https://www.hbomax.com/" target="_blank" class="w3-bar-item w3-button">HBO Max</a>
+        <a href="https://www.disneyplus.com/" target="_blank" class="w3-bar-item w3-button">Disney Plus</a>
+      </div>
+    </div>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-yellow" title="Search"><i class="fa fa-search"></i></a>
+   </div>
+  
+    <!-- Navbar on small screens -->
+    <div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium">
+      <a href="#search" class="w3-bar-item w3-button">Search</a>
+      <a href="#streaming" class="w3-bar-item w3-button">Streaming Services Comparison</a>
+      <a href="#plotly" class="w3-bar-item w3-button">Visualizations</a>
+      <a href="#theatre" class="w3-bar-item w3-button">Theatres in DC</a>
+      <a href="#team" class="w3-bar-item w3-button">Meet the Team</a>
+      <a href="#" class="w3-bar-item w3-button">Search</a>
+    </div>
+  </div>
+  
+  <!-- The div where we will inject our map -->
+  <div id="map"></div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+    crossorigin=""></script>
+  <!-- API key -->
+  <script type="text/javascript" src="static/js/config.js"></script>
+  <!-- JS -->
+  <script type="text/javascript" src="static/js/logic.js"></script>
+</body>
+
+</html>

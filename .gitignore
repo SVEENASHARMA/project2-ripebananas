@@ -1,3 +1,10 @@
+PopulateMongoDB.ipynb
+TitleLookup.ipynb
+AppPie.ipynb
+config.*
+config/
+.ipynb_checkpoints/
+__pycache__/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

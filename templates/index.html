@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Ripe Bananas!</title>
+<link rel="shortcut icon" type="image/jpg" href="static/images/favicon.ico"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<!-- Bootstrap CSS and JS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+
+<!-- Our own CSS stylesheet -->
+<link rel="stylesheet" href="static/style/main.css" media="screen">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="{{url_for('static', filename='style/titles.css')}}" media="screen">
+
+<!-- CSS For Marker Clusters -->
+<link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css">
+<link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css">
+
+<!-- D3 -->
+<script src="https://d3js.org/d3.v6.min.js"></script>
+
+<!-- Leaflet JS and CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+crossorigin=""/>
+
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+crossorigin=""></script>
+
+<!-- Marker Cluster JS -->
+
+                                    
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/leaflet.markercluster.js"></script>
+
+<!-- JavaScript file for the Marker Clusters -->
+<script>
+  API_KEY = '{{accessToken}}';
+</script>
+ 
+ 
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="{{url_for('static', filename='js/app.js')}}" defer></script> 
+<script src="{{url_for('static', filename='js/marker-cluster-map.js')}}" defer></script>
+<script src="{{url_for('static', filename='js/preferred-services.js')}}" defer></script> 
+<script src="{{url_for('static', filename='js/recommended-shows.js')}}" defer></script> 
+</head>
+
+
+<body id="myPage">
+
+<!-- Nav Bar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <a class="navbar-brand" href="/"><img src="static/images/rb-logo.png" alt=""></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item"> <a class="nav-link" href="/#search">Search</a> </li>
+      <li class="nav-item"> <a class="nav-link" href="/#subscribe">Subscribe</a> </li>
+      <li class="nav-item"> <a class="nav-link" href="/#streaming">Costs</a> </li>
+      <li class="nav-item"> <a class="nav-link" href="/#plotly">Recommendations</a> </li>
+      <li class="nav-item"> <a class="nav-link" href="/#subscriber-map-section">Subscriber Map</a> </li>
+      <li class="nav-item"> <a class="nav-link" href="/#theatre">Theatres in DC</a> </li>
+      <li class="nav-item"> <a class="nav-link" href="/#team">Meet the Team</a> </li>
+      <li class="nav-item"> <a class="nav-link" href="/#review">Reviews</a> </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Services
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          {% for service in streaming_services[0:17] %}
+          <a class="dropdown-item" href="http://www.{{service.Service_URL}}"
+            target="_blank">{{service.Service_Name}}</a>
+          {% endfor %}
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Image Header -->
+<div class="w3-display-container w3-animate-opacity">
+
+
+    <div class='jumbotron'>
+      <img class="banner" src="static/images/bb1.jpg" style="width:100%">
+    </div>
+  
+</div>
+
+
+<!-- Team Container -->
+<div class="w3-container w3-padding-64 w3-center" id="search">
+  <a name='search'></a>
+    
+        <h2>Search Your Title</h2>
+        <!-- Input form -->
+        <form method="POST" action="/">
+            <div id="search-10" class="widget_search">
+        
+                <div style="text-align: center;">
+                <input class="ubicacion" type="text" placeholder="" value="" name="media_title" id="media_title">
+                <input type="submit" id="searchsubmit" value="Search"/>
+                </div>
+            
+            </div>
+        </form>
+        <div id="result-container" class="container">
+        
+          <!-- <h1>Results</h1> -->
+
+          {% for title in titles %}
+          <div class='singleTitleUnit'>
+            <div class="row">
+              <div class="col-lg-6">
+                <img class='feature_img' src="{{title.feature_img}}" alt="">
+
+                <h4 class='recommendedTitle'>Recommended Titles:</h4>
+                <div>
+                  {% if 'recommended' in title %}
+                    {% for reco in title.recommended[0:5] %}
+                      <div>{{reco}}</div>
+                    {% endfor %}
+                  {% endif %}
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <h3>{{title.title}}</h3>
+                <h4>Where to watch:</h4>
+                <div> 
+                  {% for service in title.services_info %} 
+                    <a href="http://www.{{service.Service_URL}}" target="_blank">
+                    <div class='serviceItem' >
+                      <img src="{{service.Service_Img}}" alt="">
+                      {{service.Service_Name}}
+                      {{service.Service_Type}}
+                    </div>
+                    </a>
+                  {% endfor %}
+                </div>
+                
+                <p class="title-description">{{title.description}}</p>
+                <label>IMDb Rating:</label>{{title.rating}}
+                <label>Maturity Rating:</label>{{title.maturity}}
+                <br>
+                <label>Genre:</label>{{title.genre}}
+                <label>Country:</label>{{title.country}}
+
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+          <img class='searchlogo' src="/static/images/bm-b-200.png" alt="">
+        </div>
+</div>
+<!-- USER FORM -->
+<div class="w3-row-padding w3-center w3-padding-64 container" id="subscribe" style="max-width: 600px;">
+  <h2>Be a Ripe Banana</h2>
+  <h4>Join our bunch!</h4><br>
+  <div id="create-user-form" class="create-user-form">
+    <h2>Enter your information below!</h2>
+    <form method="POST" action="/create_user" role="form" , name="form">
+      <div class="form-group">
+        <label for="inputUserName">Please enter a User Name</label>
+        <input type="text" class="form-control" id="inputUserName" name="userName" placeholder="i.e., firstName_lastName">
+      </div>
+      <div class="form-group">
+        <label for="inputAge">Please enter your age</label>
+        <input type="text" class="form-control" id="inputAge" name="userAge" placeholder="i.e., 21">
+      </div>
+      <div class="form-group">
+        <label for="inputZip">Please enter your zip code</label>
+        <input type="text" class="form-control" id="inputZip" name="userZip" placeholder="i.e., 00000">
+      </div>
+      <div class="form-group">
+        <label for="inputFreq">How often do you use streaming services?</label>
+        <select type="text" class="form-control" id="inputFreq" name="userFreq" placeholder="Click here">
+          <option value='1'>Daily</option>
+          <option value='2'>Weekly</option>
+          <option value='3'>Monthly</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="inputServ">Service Selection (Ctrl + Click)</label>
+        <select type="text" class="form-control" id="inputServ" name="userServ" placeholder="Click here" multiple>
+        </select>
+      </div>
+      <input type="submit" value="submit" class="btn btn-primary">
+    </form>
+
+<!-- Streaming Select-->
+    <script>
+      function init_servicelist() {
+        var inputserv = d3.select('#inputServ')
+        d3.json("/api/view/VW_ServiceByPopularity").then((services) => {
+          inputserv.html('');
+          services.forEach(service => {
+            inputserv.append('option').attr('value', service['Service_ID']).text(service['Service_Name'])
+            //console.log(service['Service_ID']); 
+          });
+        });
+      };
+      init_servicelist();
+
+    </script>
+  </div>
+  <div class='container'>
+    <div class='row'>
+      <div class='col-md-12'>
+        <div class="w3-row-padding w3-center w3-padding-64" id="subscribe">
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- Plotly Services Cost Comparison Row -->
+<div class="w3-container w3-padding-64 w3-center" id="streaming">
+
+    <div class="container"> 
+      <div class="row">
+          <div class=" col-lg-12">
+              <img src="/static/images/rr-300.png">
+          </div>
+          <div class="col-md-6">
+              <div class="well">
+                  <h5>Streaming Services:</h5>
+                  <select id="selDataset" onchange="optionChanged(this.value)"></select>
+              </div>
+              <div class="panel panel-primary"> 
+                  <div id="sample-metadata" class="panel-body"></div>
+              </div>
+          </div> 
+          <div class="col-md-6">
+              <div id="gauge"></div>
+          </div>
+      </div> 
+  </div>
+
+    <h2>Keep your money as green as your unriped bananas!</h2>
+    <br>
+      <div class="row"> 
+        <div class="col-lg-12"><a target="_blank" class="button" href="/services-cost-viz">CLICK for Closer Look</a>
+          {% include 'services_cost_viz.html'%}
+        </div>
+    </div>
+
+<!-- Plotly Recommendation Row -->
+<div class="w3-row-padding w3-center w3-padding-64 container-fluid" id="plotly"> 
+  <h2>Recommendations</h2>
+  <h4>What to Watch</h4><br>
+  <div class="row">
+    <div class="col-lg-12"><a target="_blank" class="button" href="/recommendations-viz">CLICK for Closer Look</a>
+    </div>
+  <iframe src="/recommendations-viz/" height="700px" width="100%" frameborder="0"></iframe>
+  </div>
+<br>
+<!-- Plotly Services Row -->
+  <h4>Where We Are Watching</h4><br>
+  <div class='row'>
+    <div class="col-lg-12"><a target="_blank" class="button" href="/services-viz">CLICK for Closer Look</a>
+    </div>
+  <iframe src="/services-viz" height="500px" width="100%" frameborder="0"></iframe>
+  </div>
+
+</div>
+
+<!-- 
+We could implement the graphics using plotly, instead of
+writing the images into html files and then loading html files
+into frames.  However, we found the html / frame method more robust.
+We are includeding the following commented out code, along with the
+/static/js files names "preferred-services.js" and "recommended-shows.js",
+as an alternative implemenation of the bar charts that uses plotly directly.
+
+We prefer the html method b/c writing and reading a large json file, which
+the plotly method requires, is slower than using python to make the graphics
+and then loading them. 
+
+
+<div class="w3-row-padding w3-center w3-padding-64" id="plotly-js">
+    <h2>Visualizations</h2>
+    <h4>Want some show recommendations?  Check out these shows other users like!</h4><br>
+    <div id='recommended-shows'></div>
+</div>
+
+
+<div class="w3-row-padding w3-center w3-padding-64" id="plotly-js">
+  <h2>Visualizations</h2>
+  <h4>Need more help choosing a platform? Check out these platforms popular with other users!</h4><br>
+  <div id='preferred-services'></div>
+</div>
+
+-->
+
+
+
+<!-- Marker Cluster Row -->
+<div class="w3-row-padding w3-center w3-padding-64" id="subscriber-map-section" style="margin: auto;">
+  <h2>Subscribers</h2>
+  <h4>Interested in our subscribers? Check out where they are located!</h4><br>
+
+  <div class='container'>
+    <div class='row'>
+      <div class='col-md-12'>
+        <div class="w3-row-padding w3-center w3-padding-64" id="subscriber-map" style="height: 800px; width:1000px;"></div>
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+
+
+<!-- Map Row -->
+<div class="w3-row-padding w3-center w3-padding-64" id="theatre">
+  <h2>Movie Theatres in DC</h2>
+  <h4>Just for fun - if you miss watching movies on the big screen, check out these local theatres in DC! Click the image below:</h4><br>
+  <a href="/maps" target="_blank" rel="noopener noreferrer">
+    <img src="static/images/dc.jpg" style="max-width:100%;">
+    </a>
+</div>
+
+<!-- Team Container -->
+<div class="w3-container w3-padding-64 w3-center" id="team">
+  <h2>Meet the Team</h2>
+  <h4>AKA The Forgotten Dartlings!</h4>
+  <div class="w3-row"><br>
+  
+  <div class="w3-third">
+    <h3>William Pappas</h3>
+    <h5>Web Scraping Pro - Serving up banana cream python!</h5>
+  </div>
+  
+  <div class="w3-third">
+    <h3>Desiree Herschberger</h3>
+    <h5>Database Queen! Phenomenal and brilliant! </h5>
+  </div>
+  
+  <div class="w3-third">
+    <h3>Redeat Bekele</h3>
+    <h5>Exceptional and remarkable - What CAN'T she do?!</h5>
+  </div>
+  
+  <div class="w3-third">
+    <h3>Thomas Keane</h3>
+    <h5>Flask and Plotly Wizard! Watch out for him!</h5>
+  </div>
+  
+  <div class="w3-third">
+    <h3>Taslemun Nahar</h3>
+    <h5>Data artiste - Absolutely incredible!</h5>
+  </div>
+  
+  <div class="w3-third">
+    <h3>Sveena Sharma</h3>
+    <h5>Web Development - Here for a good time and trying her best!</h5>
+  </div>
+  
+  </div>
+  </div>
+  
+  <div class="w3-container w3-padding-64 w3-center" id="review">
+    <h2>Reviews</h2>
+    <div class="w3-row"><br>
+    <img src="static/images/logo.jpg" style="max-width:100%; ">
+    <img src="static/images/fb.jpg" style="max-width:100%;">  
+  </div>
+  </div>
+  
+<!-- Start of Footer -->
+<img src="/static/images/footer.png" style="width:100%" alt="">
+<footer>
+  <p>The Forgotten Dartlings 2021<br>
+</footer>
+<!-- End of Footer -->
+
+<script>
+// Script for side navigation
+function w3_open() {
+  var x = document.getElementById("mySidebar");
+  x.style.width = "300px";
+  x.style.paddingTop = "10%";
+  x.style.display = "block";
+}
+
+// Close side navigation
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+}
+
+// Used to toggle the menu on smaller screens when clicking on the menu button
+function openNav() {
+  var x = document.getElementById("navDemo");
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+  } else { 
+    x.className = x.className.replace(" w3-show", "");
+  }
+};
+</script>
+{% if tab == 'search' %}
+  <script>location.href = '#{{tab}}';</script>
+{% endif %}
+
+<script>
+  $(document).ready(function () {
+    $(".main-svg").css({ 'height': '500px' });
+      $(".svg-container").css({'width':'99%'}); 
+      $(".main-svg").css({ 'transform': 'scale(1)' });
+    }); 
+</script>
+<script src="{{url_for('static', filename='js/ripe_rating.js')}}" defer></script>
+
+
+</body>
+</html>
